@@ -1,0 +1,162 @@
+<?php 
+
+session_start();
+
+if(!isset($_SESSION['email'])) //||(!isset($_SESSION['pwd'])))
+
+{ 
+
+header('location:login.php'); 
+
+	}
+
+	 $email=$_SESSION['email'];
+
+	$pwd=$_SESSION['pwd'];
+
+ ?>
+
+
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>BlackMart Shopping</title>
+
+<link href="themes/1/js-image-slider.css" rel="stylesheet" type="text/css" />
+
+ <script src="themes/1/js-image-slider.js" type="text/javascript"></script>
+
+ <link href="generic.css" rel="stylesheet" type="text/css" />
+
+<link href="mynew/eCommerceAssets/styles/eCommerceStyle.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+
+
+<div style="width:100%; height:auto;">
+
+
+
+   <header>
+
+  <?php include ('headerNew.php'); ?>
+
+   </div>
+</header>
+<div style="width:100%; height:200px; background-image:url(images/banner.jpg); background-repeat:no-repeat; background-position:center">
+</div>
+  <!--menu--> <div style="height:auto; width:100%; background-color:#269FB2; border:0px solid #269FB2;">
+
+    <?php include ('menu.php'); ?>
+
+   </div><!--menu close-->
+
+  
+
+  <!--cc--><div style="height:auto; width:100%;border:0px solid #269FB2;">
+
+  
+
+    <!--sliderall--> <div style="height:328px; margin:auto; width:1050px; border:0px solid #990000;  ">
+
+       <?php include ('slider.php');?>
+
+       
+
+                  </div><!--sliderall close-->
+
+ 
+
+  
+
+  <!--sliderall close-->
+
+<!--slider down data-->            
+
+            <div style="height:auto; width:1050px;   margin:auto; border:1px solid #EBEBEB; background-color:#ffffff;  ">
+
+            <div style="height:40px; width:1050px; height:auto; border:0px solid #000000; padding-top:5px; background-color:#F1F0F0; border-radius:5px; color:#1C7582;">
+
+         <font style=" font-size:18px;"> &nbsp; Your Purchase History</font>
+
+            </div>
+	<?php
+	include('dbconnection.php');
+	$query="select * from payment_history where email='".$email."'";
+
+	$result=mysql_query($query);
+	?>
+          
+
+            <table border="1" style="width:1050px; height:30px; background-color:#7CE1D6;" width="60%" align="center">
+
+            <tr height="30">
+
+            <th>In_No</th>
+            <th>Ser_No</th>
+            <th>Product_Description</th>
+            <th>Quantity</th>
+            <th>Total_Price</th>
+		<th>Date</th>
+            
+            </tr>
+            
+
+            <?php
+			while($row=mysql_fetch_array($result))
+			{
+				echo "<tr>";
+					echo "<td>".$row['invoicenum']."</td>";
+					echo "<td>".$row['ser_no']."</td>";
+					echo "<td>".$row['product_description']."</td>";
+					echo "<td>".$row['quantity']."</td>";
+					echo "<td>".$row['price_total']."</td>";
+					echo "<td>".$row['date']."</td>";
+				echo "</tr>";
+			}
+			echo "</table>";
+			?>
+
+            
+
+    
+
+        </div>
+
+            
+
+         <div style="height:30px; width:1050px; margin:auto; border:0px solid #000000;">
+
+         <?php include('marquee.php'); ?>
+
+        
+
+        </div>
+
+         
+
+       <!--footer--><div style="width:100%; background-color:#414040; height:150px; border:1px solid #000000; ">
+
+         <?php include('footer.php'); ?>
+
+         </div><!--footer close-->
+
+     </div> <!--center close-->
+
+           </div><!--main close-->
+
+
+
+
+
+</body>
+
+</html>
+
